@@ -47,7 +47,7 @@ function ColorCard(props: any) {
           height: "380px",
           borderRadius: "100px",
           backgroundColor: props.color.hex,
-          border: "2px solid black",
+          border: "1px dashed black",
         }}
       />
       <TextField

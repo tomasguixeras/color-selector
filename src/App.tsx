@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import ColorCard from "./components/ColorCard";
 import Cards from "./components/Cards";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   const [mode, setMode] = useState("Light");
@@ -32,7 +34,6 @@ function App() {
     }
   };
 
-
   useEffect(() => {
     getColorsHex();
   }, []);
@@ -49,17 +50,19 @@ function App() {
         backgroundColor: mode === "Light" ? "#FFFFFF" : "#000000",
       }}
     >
-      <Cards 
-        allColors={allColors} 
-        setAllColors={setAllColors} 
-        filteredColors={filteredColors} 
-        setFilteredColors={setFilteredColors} 
+      <Navbar />
+      <Cards
+        allColors={allColors}
+        setAllColors={setAllColors}
+        filteredColors={filteredColors}
+        setFilteredColors={setFilteredColors}
       />
       <Button
         variant="contained"
         size="large"
         onClick={setColorChange}
       >{`Try on ${currentTheme} Mode!`}</Button>
+      <Footer />
     </Box>
   );
 }
