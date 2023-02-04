@@ -1,22 +1,29 @@
-import { Box, Button, InputAdornment, TextField } from "@mui/material";
-import { Send } from "@mui/icons-material";
+import { ThemeProvider, Box, Button, createTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import styles from "./App.module.css";
-import ColorCard from "./components/ColorCard";
 import Cards from "./components/Cards";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function App() {
-  const [mode, setMode] = useState("Light");
+  const [colorMode, setColorMode] = useState("Light");
+  //
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: colorMode === "Light" ? "light" : "dark",
+    },
+  });
+
+  //
+
   // const [color, setColor] = useState("C4831D");
   const [allColors, setAllColors] = useState([]);
   const [filteredColors, setFilteredColors] = useState([]);
 
-  const currentTheme = mode === "Light" ? "Dark" : "Light";
+  const currentTheme = colorMode === "light" ? "dark" : "light";
 
   const setColorChange = () => {
-    mode === "Light" ? setMode("Dark") : setMode("Light");
+    colorMode === "Light" ? setColorMode("Dark") : setColorMode("Light");
   };
 
   const getColorsHex = () => {
@@ -39,31 +46,33 @@ function App() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: mode === "Light" ? "#FFFFFF" : "#000000",
-      }}
-    >
-      <Navbar />
-      <Cards
-        allColors={allColors}
-        setAllColors={setAllColors}
-        filteredColors={filteredColors}
-        setFilteredColors={setFilteredColors}
-      />
-      <Button
-        variant="contained"
-        size="large"
-        onClick={setColorChange}
-      >{`Try on ${currentTheme} Mode!`}</Button>
-      <Footer />
-    </Box>
+    <ThemeProvider theme={darkTheme}>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: colorMode === "Light" ? "#FFFFFF" : "#000000",
+        }}
+      >
+        <Navbar />
+        <Cards
+          allColors={allColors}
+          setAllColors={setAllColors}
+          filteredColors={filteredColors}
+          setFilteredColors={setFilteredColors}
+        />
+        <Button
+          variant="contained"
+          size="large"
+          onClick={setColorChange}
+        >{`Try on ${currentTheme} Mode!`}</Button>
+        <Footer />
+      </Box>
+    </ThemeProvider>
   );
 }
 

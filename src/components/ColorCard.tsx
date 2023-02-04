@@ -2,12 +2,11 @@ import { Box, Button, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 function ColorCard(props: any) {
-
-  const [newColor, setNewColor] = useState('')
+  const [newColor, setNewColor] = useState("");
 
   const onHandleColorChanged = (e: any) => {
-    setNewColor(`#${e.target.value}`)
-  }
+    setNewColor(`#${e.target.value}`);
+  };
 
   const onColorChanged = (e: any) => {
     const selectedColor = props.allColors.find(
@@ -18,16 +17,14 @@ function ColorCard(props: any) {
       let newColors = [...props.filteredColors];
       newColors[props.id] = selectedColor;
       props.setFilteredColors(newColors);
-    }
-    else if(validateHex.test(newColor)) {
-      const aux = { name: 'Unknown color name', hex: newColor };
+    } else if (validateHex.test(newColor)) {
+      const aux = { name: "Unknown color name", hex: newColor };
       let newColors = [...props.filteredColors];
       newColors[props.id] = aux;
       props.setFilteredColors(newColors);
-    } else{
+    } else {
       console.log("Error chan!!");
     }
-
   };
 
   return (

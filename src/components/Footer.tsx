@@ -12,12 +12,13 @@ function Footer() {
         alignItems: "center",
       }}
     >
-      <Typography>
-        Design by{" "}
+      <Typography color="text.primary">
+        Design by
         <a
           href="https://www.tomasbohngs.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
+          style={{ color: "#007aa5", padding: "5px" }}
         >
           TomasBohnGs
         </a>
