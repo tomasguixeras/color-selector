@@ -1,5 +1,7 @@
-import { Box, Button, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { Send } from "@mui/icons-material";
+import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import TextInput from "./TextInput";
 
 function ColorCard(props: any) {
   const [newColor, setNewColor] = useState("");
@@ -30,6 +32,7 @@ function ColorCard(props: any) {
   return (
     <Box
       sx={{
+        margin: "5px",
         height: "90%",
         width: "100%",
         display: "flex",
@@ -47,15 +50,10 @@ function ColorCard(props: any) {
           border: "1px dashed black",
         }}
       />
-      <TextField
-        onChange={onHandleColorChanged}
-        sx={{ m: 1, width: "25ch", input: { textAlign: "center" } }}
-        InputProps={{
-          startAdornment: <InputAdornment position="start">#</InputAdornment>,
-        }}
-        // value={props.color.hex}
+      <TextInput
+        onColorChanged={onColorChanged}
+        onHandleColorChanged={onHandleColorChanged}
       />
-      <Button onClick={onColorChanged}>Try New Color!</Button>
     </Box>
   );
 }

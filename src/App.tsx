@@ -58,18 +58,13 @@ function App() {
           backgroundColor: colorMode === "Light" ? "#FFFFFF" : "#000000",
         }}
       >
-        <Navbar />
+        <Navbar setColorChange={setColorChange} currentTheme={currentTheme} />
         <Cards
           allColors={allColors}
           setAllColors={setAllColors}
           filteredColors={filteredColors}
           setFilteredColors={setFilteredColors}
         />
-        <Button
-          variant="contained"
-          size="large"
-          onClick={setColorChange}
-        >{`Try on ${currentTheme} Mode!`}</Button>
         <Footer />
       </Box>
     </ThemeProvider>
