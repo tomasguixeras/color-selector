@@ -7,8 +7,15 @@ import SettingsMenu from "./SettingsMenu";
 type NavbarProps = {
   colorMode: string;
   setColorMode: React.Dispatch<React.SetStateAction<string>>;
+  cardQuantity: number;
+  setCardQuantity: React.Dispatch<React.SetStateAction<number>>;
 };
-function Navbar({ setColorMode, colorMode }: NavbarProps) {
+function Navbar({
+  setColorMode,
+  colorMode,
+  cardQuantity,
+  setCardQuantity,
+}: NavbarProps) {
   return (
     <Box
       sx={{
@@ -22,8 +29,11 @@ function Navbar({ setColorMode, colorMode }: NavbarProps) {
     >
       <Avatar src={Logo} alt="Logo" sx={{ width: "70px", height: "auto" }} />
       <Box sx={{ display: "flex", alignItems: "center", gap: "7px" }}>
-        <ThemeToggle />
-        <SettingsMenu />
+        <ThemeToggle colorMode={colorMode} setColorMode={setColorMode} />
+        <SettingsMenu
+          cardQuantity={cardQuantity}
+          setCardQuantity={setCardQuantity}
+        />
       </Box>
     </Box>
   );

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Settings } from "@mui/icons-material";
 import {
   Box,
@@ -11,9 +12,13 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 
-function SettingsMenu() {
+type SettingsProps = {
+  cardQuantity: number;
+  setCardQuantity: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
 
@@ -24,10 +29,8 @@ function SettingsMenu() {
     setAnchorEl(null);
   };
 
-  const [quantity, setQuantity] = useState<number>(4);
-
   const handleQuantityChange = (event: SelectChangeEvent) => {
-    setQuantity(parseFloat(event.target.value));
+    setCardQuantity(parseFloat(event.target.value));
   };
   return (
     <>
@@ -75,7 +78,7 @@ function SettingsMenu() {
             <FormControl fullWidth>
               <Select
                 sx={{ border: "1px solid black", borderRadius: "25px" }}
-                value={quantity.toString()}
+                value={cardQuantity.toString()}
                 onChange={handleQuantityChange}
                 displayEmpty
               >

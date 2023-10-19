@@ -9,6 +9,7 @@ function App() {
   const [allColors, setAllColors] = useState([]);
   const [filteredColors, setFilteredColors] = useState([]);
   const [colorMode, setColorMode] = useState("Light");
+  const [cardQuantity, setCardQuantity] = useState<number>(4);
 
   const darkTheme = createTheme({
     palette: {
@@ -21,11 +22,11 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const shuffled = data.sort(() => 0.5 - Math.random());
-        let selected = shuffled.slice(0, 5);
+        let selected = shuffled.slice(0, cardQuantity);
         setFilteredColors(selected);
         setAllColors(data);
       });
-  }, []);
+  }, [cardQuantity]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -42,7 +43,12 @@ function App() {
           backgroundColor: colorMode === "Light" ? "#FFFFFF" : "#000000",
         }}
       >
-        <Navbar setColorMode={setColorMode} colorMode={colorMode} />
+        <Navbar
+          setColorMode={setColorMode}
+          colorMode={colorMode}
+          cardQuantity={cardQuantity}
+          setCardQuantity={setCardQuantity}
+        />
         <Box
           sx={{
             width: "100%",
@@ -52,10 +58,12 @@ function App() {
             justifyContent: "space-evenly",
           }}
         >
+          {filteredColors.map((color: { name: string; hex: string }) => {
+            return <DesktopCard key={color.hex} hex={color.hex} />;
+          })}
+          {/* <DesktopCard />
           <DesktopCard />
-          <DesktopCard />
-          <DesktopCard />
-          <DesktopCard />
+          <DesktopCard /> */}
         </Box>
         {/* <Cards
           allColors={allColors}
