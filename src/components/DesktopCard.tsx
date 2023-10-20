@@ -7,7 +7,7 @@ function DesktopCard({ hex }: { hex: string }) {
   const [hexCode, setHexCode] = useState(hex);
   const [auxHexCode, setAuxHexCode] = useState("");
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value;
     if (inputValue !== "#") inputValue = `#${inputValue}`;
 
