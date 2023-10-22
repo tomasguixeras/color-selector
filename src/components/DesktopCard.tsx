@@ -28,8 +28,9 @@ function DesktopCard({ hex }: { hex: string }) {
     <Box
       sx={{
         border: "1px solid black",
-        width: "270px",
-        borderRadius: "25px",
+        width: window?.screen.width >= 1000 ? "270px" : "90%",
+        height: window?.screen.width >= 1000 ? "100%" : "170px",
+        borderRadius : "25px",
         position: "relative",
         bgcolor: hexCode,
       }}

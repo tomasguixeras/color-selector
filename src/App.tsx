@@ -52,9 +52,10 @@ function App() {
         <Box
           sx={{
             width: "100%",
-            height: "70%",
+            height: "80%",
             display: "flex",
-            flexDirection: "row",
+            flexDirection: window?.screen.width >= 1000 ? "row" : "column",
+            alignItems: "center",
             justifyContent: "space-evenly",
           }}
         >
