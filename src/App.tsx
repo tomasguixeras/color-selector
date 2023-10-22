@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
-import { ThemeProvider, Box, Button, createTheme } from "@mui/material";
-import Cards from "./components/Cards";
+import { ThemeProvider } from "@mui/material/styles";
+import { Box, CssBaseline } from "@mui/material";
+import { useThemeContext } from "./theme/ThemeContextProvider";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import DesktopCard from "./components/DesktopCard";
 
 function App() {
-  const [allColors, setAllColors] = useState([]);
+  const { theme } = useThemeContext();
+  // const [allColors, setAllColors] = useState([]);
   const [filteredColors, setFilteredColors] = useState([]);
-  const [colorMode, setColorMode] = useState("Light");
   const [cardQuantity, setCardQuantity] = useState<number>(4);
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: colorMode === "Light" ? "light" : "dark",
-    },
-  });
 
   useEffect(() => {
     fetch("colorHex.json")
@@ -24,12 +20,13 @@ function App() {
         const shuffled = data.sort(() => 0.5 - Math.random());
         let selected = shuffled.slice(0, cardQuantity);
         setFilteredColors(selected);
-        setAllColors(data);
+        // setAllColors(data);
       });
   }, [cardQuantity]);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Box
         sx={{
           width: "100%",
@@ -40,15 +37,9 @@ function App() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: colorMode === "Light" ? "#FFFFFF" : "#000000",
         }}
       >
-        <Navbar
-          setColorMode={setColorMode}
-          colorMode={colorMode}
-          cardQuantity={cardQuantity}
-          setCardQuantity={setCardQuantity}
-        />
+        <Navbar cardQuantity={cardQuantity} setCardQuantity={setCardQuantity} />
         <Box
           sx={{
             width: "100%",
@@ -62,16 +53,7 @@ function App() {
           {filteredColors.map((color: { name: string; hex: string }) => {
             return <DesktopCard key={color.hex} hex={color.hex} />;
           })}
-          {/* <DesktopCard />
-          <DesktopCard />
-          <DesktopCard /> */}
         </Box>
-        {/* <Cards
-          allColors={allColors}
-          setAllColors={setAllColors}
-          filteredColors={filteredColors}
-          setFilteredColors={setFilteredColors}
-        /> */}
         <Footer />
       </Box>
     </ThemeProvider>

@@ -18,7 +18,16 @@ type SettingsProps = {
   setCardQuantity: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
+export function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
+  const [lightBG, setLightBG] = useState("");
+  const [darkBG, setDarkBG] = useState("");
+  const backgroundColorToggle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = event.target;
+    name === "lightBG" ? setLightBG(value) : setDarkBG(value);
+  };
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
 
@@ -49,6 +58,9 @@ function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
                 boxSizing: "border-box",
               }}
               size="small"
+              name="darkBG"
+              value={darkBG}
+              onChange={backgroundColorToggle}
               startAdornment={
                 <InputAdornment position="start">#</InputAdornment>
               }
@@ -66,6 +78,9 @@ function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
                 boxSizing: "border-box",
               }}
               size="small"
+              name="lightBG"
+              value={lightBG}
+              onChange={backgroundColorToggle}
               startAdornment={
                 <InputAdornment position="start">#</InputAdornment>
               }
@@ -95,5 +110,3 @@ function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
     </>
   );
 }
-
-export default SettingsMenu;

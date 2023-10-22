@@ -1,35 +1,13 @@
-import { ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { LightMode, DarkMode } from "@mui/icons-material";
-import { useState } from "react";
+import { useThemeContext } from "../theme/ThemeContextProvider";
 
-type NavbarProps = {
-  colorMode: string;
-  setColorMode: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export function ThemeToggle({ colorMode, setColorMode }: NavbarProps) {
-  // const [themeMode, setThemeMode] = useState<string>("Light");
-
-  const handleThemeChange = (
-    event: React.MouseEvent<HTMLElement>,
-    value: string
-  ) => {
-    setColorMode(value);
-  };
+export function ThemeToggle() {
+  const { mode, toggleColorMode } = useThemeContext();
 
   return (
-    <ToggleButtonGroup
-      color="primary"
-      value={colorMode}
-      onChange={handleThemeChange}
-      exclusive
-    >
-      <ToggleButton value={"Dark"}>
-        <DarkMode />
-      </ToggleButton>
-      <ToggleButton value={"Light"}>
-        <LightMode />
-      </ToggleButton>
-    </ToggleButtonGroup>
+    <IconButton value={mode} onClick={toggleColorMode}>
+      {mode === "light" ? <DarkMode /> : <LightMode />}
+    </IconButton>
   );
 }
