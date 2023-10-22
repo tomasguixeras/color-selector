@@ -6,12 +6,20 @@ type ThemeContextType = {
   mode: string;
   toggleColorMode: () => void;
   theme: Theme;
+  lightBG: string;
+  darkBG: string;
+  changeLightBackground: (newColor: string) => void;
+  changeDarkBackground: (newColor: string) => void;
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
   mode: "light",
   toggleColorMode: () => {},
   theme: createTheme(),
+  lightBG: "#FFFFFF",
+  darkBG: "#242424",
+  changeLightBackground: () => {},
+  changeDarkBackground: () => {},
 });
 
 export const ThemeContextProvider: FC<PropsWithChildren> = ({ children }) => {

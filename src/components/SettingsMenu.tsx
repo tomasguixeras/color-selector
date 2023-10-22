@@ -12,6 +12,8 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
+import { useThemeContext } from "../theme/ThemeContextProvider";
+import InputColor from "./InputColor";
 
 type SettingsProps = {
   cardQuantity: number;
@@ -19,14 +21,8 @@ type SettingsProps = {
 };
 
 export function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
-  const [lightBG, setLightBG] = useState("");
-  const [darkBG, setDarkBG] = useState("");
-  const backgroundColorToggle = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = event.target;
-    name === "lightBG" ? setLightBG(value) : setDarkBG(value);
-  };
+  const { lightBG, darkBG, changeLightBackground, changeDarkBackground } =
+    useThemeContext();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
@@ -47,52 +43,28 @@ export function SettingsMenu({ cardQuantity, setCardQuantity }: SettingsProps) {
         <Settings />
       </IconButton>
       <Menu anchorEl={anchorEl} open={openMenu} onClose={handleCloseMenu}>
-        <MenuItem>
-          <Box>
-            <Typography>Dark Background</Typography>
-            <InputBase
-              sx={{
-                border: "1px solid black",
-                borderRadius: "25px",
-                padding: "10px",
-                boxSizing: "border-box",
-              }}
-              size="small"
-              name="darkBG"
-              value={darkBG}
-              onChange={backgroundColorToggle}
-              startAdornment={
-                <InputAdornment position="start">#</InputAdornment>
-              }
-            />
-          </Box>
+        <MenuItem sx={{ margin: "6px 0px" }}>
+          <InputColor
+            labelText={"Light Background"}
+            color={lightBG}
+            colorChangeFn={changeLightBackground}
+          />
         </MenuItem>
-        <MenuItem>
-          <Box>
-            <Typography>Light Background</Typography>
-            <InputBase
-              sx={{
-                border: "1px solid black",
-                borderRadius: "25px",
-                padding: "10px",
-                boxSizing: "border-box",
-              }}
-              size="small"
-              name="lightBG"
-              value={lightBG}
-              onChange={backgroundColorToggle}
-              startAdornment={
-                <InputAdornment position="start">#</InputAdornment>
-              }
-            />
-          </Box>
+        <MenuItem sx={{ margin: "6px 0px" }}>
+          <InputColor
+            labelText={"Dark Background"}
+            color={darkBG}
+            colorChangeFn={changeDarkBackground}
+          />
         </MenuItem>
-        <MenuItem>
-          <Box width={"100%"}>
-            <Typography>Number of Colors</Typography>
+        <MenuItem sx={{ margin: "6px 0px" }}>
+          <Box width={"100%"} sx={{ textAlign: "center" }}>
+            <Typography sx={{ marginBottom: "6px" }}>
+              Number of Colors
+            </Typography>
             <FormControl fullWidth>
               <Select
-                sx={{ border: "1px solid black", borderRadius: "25px" }}
+                sx={{ border: "1px solid transparent", borderRadius: "25px" }}
                 value={cardQuantity.toString()}
                 onChange={handleQuantityChange}
                 displayEmpty
