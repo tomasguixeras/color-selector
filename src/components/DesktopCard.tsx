@@ -33,10 +33,12 @@ function DesktopCard({ hex }: { hex: string }) {
 
   return (
     <Box
+      // onClick={colorChange ? onCancel : undefined}
       sx={{
         border: "1px solid black",
         width: window?.screen.width >= 1000 ? "270px" : "90%",
         height: window?.screen.width >= 1000 ? "100%" : "170px",
+        margin: "8px",
         borderRadius: "25px",
         position: "relative",
         bgcolor: hexCode,

@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 import { PaletteMode } from "@mui/material";
 import React from "react";
 import { getDesignTokens } from "./theme";
+import { formatHexCode } from "../utils/validHexCode";
 
 export const useColorTheme = () => {
   const [mode, setMode] = React.useState<PaletteMode>("light");
@@ -12,11 +13,13 @@ export const useColorTheme = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
 
   const changeLightBackground = (newColor: string) => {
-    setLightBG(newColor);
+    const codeFormated = formatHexCode(newColor)
+    setLightBG(codeFormated);
   };
-
+  
   const changeDarkBackground = (newColor: string) => {
-    setDarkBG(newColor);
+    const codeFormated = formatHexCode(newColor)
+    setDarkBG(codeFormated);
   };
 
   const modifiedTheme = React.useMemo(

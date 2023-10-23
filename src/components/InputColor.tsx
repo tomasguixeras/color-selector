@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Check } from "@mui/icons-material";
 import {
   Box,
@@ -7,6 +8,7 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@mui/material";
+import { validHexCode } from "../utils/validHexCode";
 
 type InputColorProps = {
   labelText: string;
@@ -20,17 +22,23 @@ export default function InputColor({
   colorChangeFn,
 }: InputColorProps) {
   const [state, setState] = useState(color);
+  const validCode = validHexCode(state);
+
   return (
     <Box sx={{ textAlign: "center" }}>
       <InputLabel sx={{ marginBottom: "6px" }}>{labelText}</InputLabel>
       <OutlinedInput
+        error={!validCode}
         size="small"
         value={state}
         onChange={(event) => setState(event.target.value)}
         type={"text"}
         endAdornment={
           <InputAdornment position="end">
-            <IconButton onClick={() => colorChangeFn(state)}>
+            <IconButton
+              disabled={!validCode}
+              onClick={() => colorChangeFn(state)}
+            >
               <Check />
             </IconButton>
           </InputAdornment>

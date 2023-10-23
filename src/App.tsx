@@ -43,7 +43,7 @@ function App() {
         <Box
           sx={{
             width: "100%",
-            height: "80%",
+            minHeight: "70%",
             display: "flex",
             flexDirection: window?.screen.width >= 1000 ? "row" : "column",
             alignItems: "center",
