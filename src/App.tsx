@@ -1,70 +1,59 @@
-import { ThemeProvider, Box, Button, createTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import Cards from "./components/Cards";
+import { ThemeProvider } from "@mui/material/styles";
+import { Box, CssBaseline } from "@mui/material";
+import { useThemeContext } from "./theme/ThemeContextProvider";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import DesktopCard from "./components/DesktopCard";
 
 function App() {
-  const [colorMode, setColorMode] = useState("Light");
-  //
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: colorMode === "Light" ? "light" : "dark",
-    },
-  });
-
-  //
-
-  // const [color, setColor] = useState("C4831D");
-  const [allColors, setAllColors] = useState([]);
+  const { theme } = useThemeContext();
+  // const [allColors, setAllColors] = useState([]);
   const [filteredColors, setFilteredColors] = useState([]);
-
-  const currentTheme = colorMode === "light" ? "dark" : "light";
-
-  const setColorChange = () => {
-    colorMode === "Light" ? setColorMode("Dark") : setColorMode("Light");
-  };
-
-  const getColorsHex = () => {
-    try {
-      fetch("colorHex.json")
-        .then((response) => response.json())
-        .then((data: any) => {
-          const shuffled = data.sort(() => 0.5 - Math.random());
-          let selected = shuffled.slice(0, 5);
-          setFilteredColors(selected);
-          setAllColors(data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [cardQuantity, setCardQuantity] = useState<number>(4);
 
   useEffect(() => {
-    getColorsHex();
-  }, []);
+    fetch("colorHex.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const shuffled = data.sort(() => 0.5 - Math.random());
+        let selected = shuffled.slice(0, cardQuantity);
+        setFilteredColors(selected);
+        // setAllColors(data);
+      });
+  }, [cardQuantity]);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Box
         sx={{
           width: "100%",
+          maxWidth: "1400px",
+          margin: "auto",
           height: "100vh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: colorMode === "Light" ? "#FFFFFF" : "#000000",
+          justifyContent: "space-between",
         }}
       >
-        <Navbar setColorChange={setColorChange} currentTheme={currentTheme} />
-        <Cards
-          allColors={allColors}
-          setAllColors={setAllColors}
-          filteredColors={filteredColors}
-          setFilteredColors={setFilteredColors}
-        />
+        <Navbar cardQuantity={cardQuantity} setCardQuantity={setCardQuantity} />
+        <Box
+          sx={{
+            width: "100%",
+            minHeight: "70%",
+            display: "flex",
+            flexDirection: window?.screen.width >= 1000 ? "row" : "column",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+          }}
+        >
+          {filteredColors.map((color: { name: string; hex: string }) => {
+            return <DesktopCard key={color.hex} hex={color.hex} />;
+          })}
+        </Box>
         <Footer />
       </Box>
     </ThemeProvider>

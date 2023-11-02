@@ -1,32 +1,33 @@
-import { Box, Avatar, Button } from "@mui/material";
-import React from "react";
 import Logo from "../assets/Logo.png";
+import { Box, Avatar, IconButton } from "@mui/material";
 
-function Navbar(props: any) {
+import { SettingsMenu } from "./SettingsMenu";
+import { ThemeToggle } from "./ThemeToggle";
+
+type NavbarProps = {
+  cardQuantity: number;
+  setCardQuantity: React.Dispatch<React.SetStateAction<number>>;
+};
+function Navbar({ cardQuantity, setCardQuantity }: NavbarProps) {
   return (
     <Box
       sx={{
-        width: "90%",
-        margin: "10px",
+        width: "100%",
+        padding: "10px 30px",
+        boxSizing: "border-box",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
       }}
     >
       <Avatar src={Logo} alt="Logo" sx={{ width: "70px", height: "auto" }} />
-      <Button
-        variant="contained"
-        size="large"
-        onClick={props.setColorChange}
-        >{`Try on ${props.currentTheme} Mode!`}</Button>
-      <Button
-        variant="outlined"
-        href="https://links.tomasbohngs.vercel.app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        + INFO
-      </Button>
+      <Box sx={{ display: "flex", alignItems: "center", gap: "7px" }}>
+        <ThemeToggle />
+        <SettingsMenu
+          cardQuantity={cardQuantity}
+          setCardQuantity={setCardQuantity}
+        />
+      </Box>
     </Box>
   );
 }

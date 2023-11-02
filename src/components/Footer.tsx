@@ -6,21 +6,21 @@ function Footer() {
     <Box
       sx={{
         width: "100%",
-        margin: "10px 0px 5px 0px",
+        padding: "10px 0px 17px 0px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
       }}
     >
-      <Typography color="text.primary">
+      <Typography color="text.primary" sx={{ fontSize: "14px" }}>
         Design by
         <a
-          href="https://www.tomasbohngs.vercel.app"
+          href="https://tomasguixeras.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: "#007aa5", padding: "5px" }}
         >
-          TomasBohnGs
+          TomasGuixeras
         </a>
       </Typography>
     </Box>
