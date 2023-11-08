@@ -18,7 +18,7 @@ The technological stack used for development was:
 
 ## Screenshots
 
-<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1699468436/3_fk9do8.png" width="450"/>
+<img src="https://res.cloudinary.com/tomyboohngs/image/upload/v1699468436/3_fk9do8.png" width="450" />
 
 Tryout all the functionalities on the [deploy](https:color-tester.tomasguixeras.vercel.app).
 
